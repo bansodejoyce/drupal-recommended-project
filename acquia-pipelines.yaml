@@ -1,0 +1,42 @@
+version: 1.0.0
+services:
+  - mysql:5.7-32
+
+ssh-keys:
+  mykey:
+    secure: 2acIshWAndTh1sG0esOn
+
+variables:
+  COMPOSER_BIN: $SOURCE_DIR/vendor/bin
+  SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
+  SIMPLETEST_DB: "mysql://root:root@localhost/drupal"
+  API_KEY: "${decrypt:api_key}"
+  API_SECRET: "${decrypt:api_secret}"
+  global:
+    COMPOSER_BIN: $SOURCE_DIR/vendor/bin
+    API_KEY: 
+      secure: "skjdhcfoiwejdlwekjfierjfejkfkjefojoe"
+    API_SECRET: 
+      secure: "sdfjsdlfjsldkfjlsdkjflsdkjfslkdjfslkdjfslkdjf"
+
+cde-databases:
+  - drupal
+
+events:
+  build:
+    steps:
+      - composer_setup:
+          type: script
+          script:
+            - composer validate --no-check-all --ansi
+            - composer install --no-interaction --optimize-autoloader
+  post-deploy:
+    steps:
+      - deploy_to_acquia:
+          type: deploy
+          script:
+            - echo "Deployment to Acquia completed"
+      - sync_databases:
+          type: script
+          script:
+            - echo "Database sync completed"
