@@ -1,6 +1,9 @@
 version: 1.0.0
 services:
-  - mysql:5.7-32
+  - php:
+     version: 8.0
+  - mysql:
+     version: 5.7-32
 
 ssh-keys:
   mykey:
