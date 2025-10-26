@@ -31,7 +31,7 @@ events:
       - composer_setup:
           type: script
           script:
-            - echo "SIMPLETEST_BASE_URL --- $SIMPLETEST_BASE_URL"
+            - echo "COMPOSER_BIN --- $COMPOSER_BIN"
   post-deploy:
     steps:
       - deploy_to_acquia:
