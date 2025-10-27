@@ -31,6 +31,7 @@ events:
       - composer_setup:
           type: script
           script:
+            - echo "variables - $COMPOSER_BIN $SIMPLETEST_BASE_URL $API_KEY"
             - composer install --no-interaction
             - mysql -u root -proot -e "CREATE DATABASE drupal"
   post-deploy:
