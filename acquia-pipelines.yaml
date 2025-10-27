@@ -31,13 +31,14 @@ events:
       - composer_setup:
           type: script
           script:
-            - echo "COMPOSER_BIN --- $COMPOSER_BIN"
+            # - composer install
+            - mysql -u root -proot -e "CREATE DATABASE drupal"
   post-deploy:
     steps:
       - deploy_to_acquia:
           type: deploy
           script:
-            - echo "Deployment to Acquia completed"
+            - 
       - sync_databases:
           type: script
           script:
