@@ -4,7 +4,7 @@ services:
      version: 8.2
 
 ssh-keys:
-  mykey:
+  DECRYPTABLE_SSH_KEY:
     secure: 2acIshWAndTh1sG0esOn
 
 variables:
@@ -30,6 +30,8 @@ events:
           type: script
           script:
             - sleep 100
+            - 'export MD5SUM="`md5sum ~/.ssh/DECRYPTABLE_SSH_KEY`"'
+            - 'echo "Verified DECRYPTABLE_SSH_KEY is correctly encrypted."'
             - echo "variables - $COMPOSER_BIN $SIMPLETEST_BASE_URL $API_KEY"
             - composer install --no-interaction
             - mysql -u root -proot -e "CREATE DATABASE drupal"
