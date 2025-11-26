@@ -29,7 +29,6 @@ events:
       - composer_setup:
           type: script
           script:
-            - sleep 100
             - 'export MD5SUM="`md5sum ~/.ssh/DECRYPTABLE_SSH_KEY`"'
             - 'echo "Verified DECRYPTABLE_SSH_KEY is correctly encrypted."'
             - echo "variables - $COMPOSER_BIN $SIMPLETEST_BASE_URL $API_KEY"
