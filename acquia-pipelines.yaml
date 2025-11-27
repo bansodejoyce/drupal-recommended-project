@@ -37,7 +37,7 @@ events:
       - deploy_to_acquia:
           type: deploy
           script:
-            - 
+            - sleep 50
       - sync_databases:
           type: script
           script:
