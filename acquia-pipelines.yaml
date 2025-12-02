@@ -5,7 +5,7 @@ variables:
     CDE_DEPLOY_POLL_TIMEOUT: 3600
 
 cde-databases:
-  - test
+  - Dev
 
 events:
   build:
