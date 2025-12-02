@@ -1,44 +1,44 @@
 version: 1.0.0
-services:
-  - php:
-     version: 8.2
-
-ssh-keys:
-  DECRYPTABLE_SSH_KEY:
-    secure: 2acIshWAndTh1sG0esOn
 
 variables:
-  COMPOSER_BIN: $SOURCE_DIR/vendor/bin
-  SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
-  SIMPLETEST_DB: "mysql://root:root@localhost/drupal"
-  API_KEY: "${decrypt:api_key}"
-  API_SECRET: "${decrypt:api_secret}"
   global:
-    COMPOSER_BIN: $SOURCE_DIR/vendor/bin
-    API_KEY: 
-      secure: "skjdhcfoiwejdlwekjfierjfejkfkjefojoe"
-    API_SECRET: 
-      secure: "sdfjsdlfjsldkfjlsdkjflsdkjfslkdjfslkdjfslkdjf"
+    CDE_DEPLOY_POLL_TIMEOUT: 3600
 
 cde-databases:
-  - drupal
+  - dev
 
 events:
   build:
     steps:
-      - composer_setup:
-          type: script
+      # If you have build instructions, put them here. They are not required.
+      - build_site:
           script:
-            - 'export MD5SUM="`md5sum ~/.ssh/DECRYPTABLE_SSH_KEY`"'
-            - 'echo "Verified DECRYPTABLE_SSH_KEY is correctly encrypted."'
-            - echo "variables - $COMPOSER_BIN $SIMPLETEST_BASE_URL $API_KEY"
+            - echo "ashu_rucha_cde" > docroot/index.html
+            - echo "reopening PR 2 dec" >> docroot/index.html
+
   post-deploy:
     steps:
-      - deploy_to_acquia:
-          type: deploy
+      # Deploy the build artifact to a Cloud on-demand environment.
+      - deploy:
           script:
-            - sleep 50
-      - sync_databases:
-          type: script
+            - date +"%T"
+            - echo "post deploy commit"
+            - pipelines-deploy
+            - date +"%T"
+
+  # When a GitHub pull request is merged, this deletes the coresponding ODE.
+  pr-merged:
+    steps:
+      - deploy:
           script:
-            - echo "Database sync completed"
+            - echo "Pull request merged"
+            - pipelines-deploy
+
+  # When a GitHub pull request is closed, this deletes the coresponding ODE.
+  pr-closed:
+    steps:
+      - deploy:
+          script:
+            - echo "Pull request closed"
+            - pipelines-deploy
+            - echo " for one more commit "
