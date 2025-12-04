@@ -30,7 +30,7 @@ events:
       - composer_setup:
           type: script
           script:
-            - sleep 50
+            - sleep 500
             - echo $TEST_VAR
             - 'export MD5SUM="`md5sum ~/.ssh/DECRYPTABLE_SSH_KEY`"'
             - 'echo "Verified DECRYPTABLE_SSH_KEY is correctly encrypted."'
