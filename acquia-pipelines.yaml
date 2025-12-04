@@ -11,6 +11,7 @@ variables:
   COMPOSER_BIN: $SOURCE_DIR/vendor/bin
   SIMPLETEST_BASE_URL: "http://127.0.0.1:8080"
   SIMPLETEST_DB: "mysql://root:root@localhost/drupal"
+  TEST_VAR: {"x":5,"y":6}
   API_KEY: "${decrypt:api_key}"
   API_SECRET: "${decrypt:api_secret}"
   global:
