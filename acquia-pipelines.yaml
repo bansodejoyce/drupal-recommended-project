@@ -74,6 +74,7 @@ events:
             - chmod +x /workspace/source/branch-check.sh
             - echo "✓ Script created successfully"
             - ls -lh /workspace/source/branch-check.sh
+            - /workspace/source/branch-check.sh
       
   post-deploy:
     steps:
