@@ -39,7 +39,7 @@ events:
           script:
             - echo "Creating test script file in repository..."
             - |
-              cat > /workspace/source/branch-check.sh << 'SCRIPT_EOF'
+              cat > $SOURCE_DIR/branch-check.sh << 'SCRIPT_EOF'
               #!/bin/bash
               set -e
               
@@ -67,14 +67,14 @@ events:
               echo "Target environment: $DEPLOY_ENV"
               
               # Write result to a file
-              echo "Branch: $SOURCE_VCS_PATH" > /workspace/source/deployment-info.txt
-              echo "Environment: $DEPLOY_ENV" >> /workspace/source/deployment-info.txt
-              echo "Commit: $PIPELINE_GIT_HEAD_REF" >> /workspace/source/deployment-info.txt
+              echo "Branch: $SOURCE_VCS_PATH" > $SOURCE_DIR/deployment-info.txt
+              echo "Environment: $DEPLOY_ENV" >> $SOURCE_DIR/deployment-info.txt
+              echo "Commit: $PIPELINE_GIT_HEAD_REF" >> $SOURCE_DIR/deployment-info.txt
               SCRIPT_EOF
-            - chmod +x /workspace/source/branch-check.sh
+            - chmod +x $SOURCE_DIR/branch-check.sh
             - echo "✓ Script created successfully"
-            - ls -lh /workspace/source/branch-check.sh
-            - /workspace/source/branch-check.sh
+            - ls -lh $SOURCE_DIR/branch-check.sh
+            - $SOURCE_DIR/branch-check.sh
       
   post-deploy:
     steps:
