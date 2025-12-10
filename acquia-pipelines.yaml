@@ -40,7 +40,7 @@ events:
             script:
               - ./vendor/bin/drush runserver 8080 &
               - ./vendor/bin/phpunit -c docroot/core docroot/core --group=ban || true
-       - test_mysql:
+      - test_mysql:
             type: script
             script:
               - mysql -v
