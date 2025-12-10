@@ -1,5 +1,6 @@
 version: 1.0.0
 services:
+  - mysql
   - php:
      version: 8.2
 
@@ -34,47 +35,11 @@ events:
             - echo $TEST_VAR
             - echo $PIPELINE_WEBHOOK_EVENT
             - echo $SOURCE_VCS_PATH
-      - branch_check:
-          type: script
-          script:
-            - echo "Creating test script file in repository..."
-            - |
-              cat > $SOURCE_DIR/branch-check.sh << 'SCRIPT_EOF'
-              #!/bin/bash
-              set -e
-              
-              echo "=== Branch Check Script ==="
-              echo "Current branch: $SOURCE_VCS_PATH"
-              echo "Git commit: $PIPELINE_GIT_HEAD_REF"
-              echo "Pipeline event: $PIPELINES_CURRENT_EVENT"
-              echo "Test variable: $TEST_VAR"
-              
-              # Check if running on master
-              if [ "$SOURCE_VCS_PATH" = "master" ]; then
-                echo "✓ Running on master branch"
-                echo "Deploying to production environment..."
-                export DEPLOY_ENV="production"
-              elif [ "$SOURCE_VCS_PATH" = "develop" ]; then
-                echo "✓ Running on develop branch"
-                echo "Deploying to staging environment..."
-                export DEPLOY_ENV="staging"
-              else
-                echo "✓ Running on feature branch: $SOURCE_VCS_PATH"
-                echo "Deploying to dev environment..."
-                export DEPLOY_ENV="dev"
-              fi
-              
-              echo "Target environment: $DEPLOY_ENV"
-              
-              # Write result to a file
-              echo "Branch: $SOURCE_VCS_PATH" > $SOURCE_DIR/deployment-info.txt
-              echo "Environment: $DEPLOY_ENV" >> $SOURCE_DIR/deployment-info.txt
-              echo "Commit: $PIPELINE_GIT_HEAD_REF" >> $SOURCE_DIR/deployment-info.txt
-              SCRIPT_EOF
-            - chmod +x $SOURCE_DIR/branch-check.sh
-            - echo "✓ Script created successfully"
-            - ls -lh $SOURCE_DIR/branch-check.sh
-            - $SOURCE_DIR/branch-check.sh
+      - test:
+            type: script
+            script:
+              - ./vendor/bin/drush runserver 8080 &
+              - ./vendor/bin/phpunit -c docroot/core docroot/core --group=ban || true
       
   post-deploy:
     steps:
