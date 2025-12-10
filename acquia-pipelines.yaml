@@ -32,9 +32,7 @@ events:
           type: script
           script:
             - sleep 10
-            - echo $TEST_VAR
-            - echo $PIPELINE_WEBHOOK_EVENT
-            - echo $SOURCE_VCS_PATH
+            - composer install
       - test:
             type: script
             script:
