@@ -41,8 +41,8 @@ events:
       - test_mysql:
             type: script
             script:
-              - mysql -v
-      
+              -  mysql -uroot -proot
+
   post-deploy:
     steps:
       - deploy_to_acquia:
