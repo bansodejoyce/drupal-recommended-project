@@ -37,14 +37,12 @@ events:
             type: script
             script:
               - mkdir /tmp/acli-push-artifact
-              - acli push:artifact --no-push --no-clone --no-commit
-              - shopt -s dotglob && rm -rf ./* && mv /tmp/acli-push-artifact/* ./
 
   post-deploy:
     steps:
       - deploy:
           script:
-            - pipelines-deploy
+            - echo "------post-deploy------"
 
   pr-merged:
     steps:
