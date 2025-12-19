@@ -20,8 +20,6 @@ events:
           type: script
           script:
             - 'echo "PERSISTENT_VAR=" : ${PERSISTENT_VAR?"Need to set PERSISTENT_VAR"}'
-            - sleep 50
-            - export
   post-deploy:
     steps:
       - verify_vars:
