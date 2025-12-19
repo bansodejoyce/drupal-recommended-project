@@ -16,6 +16,10 @@ events:
             - 'echo "Testing custom ENV vars"'
             - 'echo "Testing persisting env vars across events"'
             - "echo '{ \"environment\": { \"new_var_1\":\"new_val_1\" } }' > \"${PIPELINES_SCRIPT_DATA_FILE}\""
+      - variable-across-steps-check:
+          type: script
+          script:
+            - 'echo "PERSISTENT_VAR=" : ${PERSISTENT_VAR?"Need to set PERSISTENT_VAR"}'      
   post-deploy:
     steps:
       - verify_vars:
