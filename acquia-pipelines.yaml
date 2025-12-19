@@ -19,7 +19,8 @@ events:
       - variable-across-steps-check:
           type: script
           script:
-            - 'echo "PERSISTENT_VAR=" : ${PERSISTENT_VAR?"Need to set PERSISTENT_VAR"}'      
+            - 'echo "PERSISTENT_VAR=" : ${PERSISTENT_VAR?"Need to set PERSISTENT_VAR"}'
+            - sleep 50
   post-deploy:
     steps:
       - verify_vars:
