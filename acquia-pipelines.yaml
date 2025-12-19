@@ -18,7 +18,7 @@ events:
             - "echo '{ \"environment\": { \"new_var_1\":\"new_val_1\" } }' > \"${PIPELINES_SCRIPT_DATA_FILE}\""
   post-deploy:
     steps:
-      - cat:
+      - verify_vars:
          type: script
          script:
          - echo 'Executing post-deploy event'
