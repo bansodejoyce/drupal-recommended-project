@@ -35,7 +35,7 @@ events:
           script:
             - 'echo "CHECK IF SSH KEYS EXISTS ON BUILD EVENT"'
             - ls -l ~/.ssh
-            - sleep 500
+            - sleep 50
   post-deploy:
     steps:
       - check-ssh-key-access:
