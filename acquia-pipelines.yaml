@@ -9,6 +9,7 @@ events:
       - behaviors:
           type: script
           script:
+            - composer install --no-dev --no-progress --optimize-autoloader --prefer-dist
             - echo "Setting metadata"
             - pipelines_metadata 'hello' 'world'
             - echo "Executing default event"
