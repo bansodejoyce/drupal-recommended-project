@@ -129,6 +129,10 @@
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
+        },
+        "gigya-php-sdk": {
+            "type": "vcs",
+            "url": "https://github.com/SAP/gigya-php-sdk.git"
         }
     },
     "minimum-stability": "dev",
