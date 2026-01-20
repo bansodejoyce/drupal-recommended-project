@@ -76,7 +76,7 @@
                 "web-root": "docroot/"
             }
         },
-        "enable-patching": false,
+        "enable-patching": true,
         "installer-paths": {
             "docroot/core": [
                 "type:drupal-core"
@@ -109,11 +109,6 @@
             "bower-asset",
             "npm-asset"
         ],
-        "patches-ignore": {
-            "drupal/core": {
-                "*": true
-            }
-        },
         "patches": {},
         "violinist": {
             "allow_updates_beyond_constraint": 0,
@@ -131,10 +126,6 @@
         "drupal": {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        },
-        "gigya-php-sdk": {
-            "type": "vcs",
-            "url": "https://github.com/SAP/gigya-php-sdk.git"
         }
     },
     "minimum-stability": "dev",
