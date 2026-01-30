@@ -1,4 +1,9 @@
 version: 1.0.0
+ssh-keys:
+  - ssh-key-2:
+      secure: sdhnwiedjlqwkdjqwdkkpqwjkdkjwldjhowjdlkwdlowjedlwkedjwdijwedwqswss
+  - ssh-key-1:
+      secure: sdhnwiedjlqwkdjqwdkkpqwjkdkjwldjhowjdlkwdlowjedlwkedjwdijwedwqswss
 variables:
   global:
     PASSWORD: test_password
@@ -9,24 +14,21 @@ events:
       - behaviors:
           type: script
           script:
-            # - composer install --no-dev --no-progress --optimize-autoloader --prefer-dist
-            - echo "Setting metadata"
-            - pipelines_metadata 'hello' 'world'
-            - echo "Executing default event"
-            - echo "Testing env vars"
-            - 'echo "CI=" : ${CI?"Need to set CI"}'
-            - export PERSISTENT_VAR=persistent
-            - 'echo "Testing custom ENV vars"'
-            - echo $MY_VAR_3
-            - echo $MY_VAR_4
-            - 'echo "Testing persisting env vars across events"'
-            - "echo '{ \"environment\": { \"new_var_1\":\"new_val_1\" } }' > \"${PIPELINES_SCRIPT_DATA_FILE}\""
-            - 'echo "Testing NVM"'
-            - nvm --version
-            - nvm install v8.11.1
-            - nvm use 8.11.1
-            - npm install color
-            # - git clone git@github.com:bansodejoyce/drupal-recommended-project.git
+            - echo 'STARTED'
+            - export PIPELINE_SSH_KEY=~/.ssh/ssh-key-1
+            # - git ls-remote git@bitbucket.org:username/repo-dependent-on-ssh-key-1.git
+            - echo 'Steps (git operations) will be successful which are dependent on ssh-key-1'
+            - sleep 50
+            - echo $PIPELINE_SSH_KEY
+            - unset PIPELINE_SSH_KEY
+            - echo 'Step executed with default ssh keys'
+            - export PIPELINE_SSH_KEY=~/.ssh/ssh-key-2
+            - sleep 50
+            # - git ls-remote git@bitbucket.org:username/repo-dependent-on-ssh-key-2.git
+            - echo $PIPELINE_SSH_KEY
+            - - echo 'Steps (git operations) will be successful which are dependent on ssh-key-2'
+            - unset PIPELINE_SSH_KEY
+            - echo 'FINISHED'
       - background-check:
           type: script
           script:
