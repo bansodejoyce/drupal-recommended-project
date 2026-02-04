@@ -29,17 +29,4 @@ events:
             - - echo 'Steps (git operations) will be successful which are dependent on ssh-key-2'
             - unset PIPELINE_SSH_KEY
             - echo 'FINISHED'
-      - background-check:
-          type: script
-          script:
-            - 'test -d /proc/$(cat /tmp/bg.pid) && echo "Background job is still running."'
-      - variable-across-steps-check:
-          type: script
-          script:
-            - 'echo "PERSISTENT_VAR=" : ${PERSISTENT_VAR?"Need to set PERSISTENT_VAR"}'
-      - check-ssh-key-access:
-          type: script
-          script:
-            - 'echo "CHECK IF SSH KEYS EXISTS ON BUILD EVENT"'
-            - ls -l ~/.ssh
-            - sleep 100
+ 
