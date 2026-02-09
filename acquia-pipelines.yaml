@@ -15,6 +15,7 @@ events:
           type: script
           script:
             - echo 'STARTED'
+            - echo $TARGET_ENV
             - export PIPELINE_SSH_KEY=~/.ssh/ssh-key-1
             # - git ls-remote git@bitbucket.org:username/repo-dependent-on-ssh-key-1.git
             - echo 'Steps (git operations) will be successful which are dependent on ssh-key-1'
