@@ -15,6 +15,7 @@ events:
           type: script
           script:
             - echo 'STARTED'
+            - printenv
             - echo $TARGET_ENV
             - echo $PROD_ENV
             - echo $STAGE_ENV
